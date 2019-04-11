@@ -1,6 +1,13 @@
-h1 Webshop number 1
 
-br
-a href="/login" Login
-br
-a href="/create_user" Create user
+- if session[:id] != nil
+    p logged in as #{session[:name]}
+
+    h1 Webshop
+
+    div id="box1"
+        img src="img/panorama-oil-painting-500x500.jpg" class="pic"
+        p class="middle" Price: 100kr 
+        a href="#"
+            img src="img/minus.png" class="minus"
+        a href="#"
+            img src="img/plus.png" class="plus"

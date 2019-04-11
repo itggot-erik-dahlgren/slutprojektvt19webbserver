@@ -11,10 +11,10 @@ get ('/') do
     slim(:index)
 end
 
-get ('/:id/home') do
-    verify_login(session[:id])
-    slim(:home)
-end
+# get ('/:id') do
+#     verify_login(session[:id])
+#     slim(:index)
+# end
 
 get ('/create_user') do
     slim(:create_user)

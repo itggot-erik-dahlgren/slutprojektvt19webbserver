@@ -1,7 +1,7 @@
 def create_user(re_password, password, name, email)
     db = SQLite3::Database.new("db/webshop.db")
     db.results_as_hash = true
-    
+    #result.length > 5 på både lösenord och andvändarnamn
     if re_password != password
         redirect('/')
     end
@@ -17,13 +17,13 @@ def login(name, password)
     db.results_as_hash = true
 
     result = db.execute("SELECT id, name, password, email FROM custumers WHERE name = ?", name)
-    if result.length > 0 && BCrypt::Password.new(result.first["password"]) == password
+    if BCrypt::Password.new(result.first["password"]) == password
         session[:name] = result.first["name"]
         session[:id] = result.first["id"]
         session[:email] = result.first["email"]
-        redirect("/#{session[:id]}/home")
+        redirect("/") #redirect("/#{session[:id]}/home")
     else
-        redirect('/error')
+        redirect('/login')
     end
 end
 
