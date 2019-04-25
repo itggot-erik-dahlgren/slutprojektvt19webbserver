@@ -21,7 +21,7 @@ def login(name, password)
         session[:name] = result.first["name"]
         session[:id] = result.first["id"]
         session[:email] = result.first["email"]
-        redirect("/home") #redirect("/#{session[:id]}/home")
+        redirect("/home")
     else
         redirect('/login')
     end
@@ -31,4 +31,11 @@ def verify_login(id)
     if id == nil
         redirect('/error')
     end 
+end
+
+def post_article(price, stock, title, picture)
+    db = SQLite3::Database.new("db/webshop.db")
+    db.results_as_hash = true
+
+    db.execute("INSERT INTO products (price, stock, title, picture) VALUES (?,?,?,?)", price, stock, title, picture)
 end

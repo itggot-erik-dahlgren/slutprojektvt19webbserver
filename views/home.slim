@@ -2,12 +2,24 @@
     p logged in as #{session[:name]}
 
     h1 Webshop
+
+
+    form action="/post_article" method="POST"
+        h3 Post
+        article
+            .info
+                input name="title" placeholder="Title" type="text"
+                input name="price" placeholder="Enter Price" type="number"
+                input name="stock" placeholder="Stock" type="number"
+                input name="picture" placeholder="Picture_Url" type="text"
+                input name="enter" placeholder="Post" type="submit"
+
     - products.each do |element|
         div class="box"
             img src="img/#{element["picture"]}" class="pic"
             div class="info"
-                label class="price" = element["price"]
-                label class="stock" = element["stock"]
+                p Price: #{element["price"]}
+                p Stock: #{element["stock"]} 
             a href="#"
                 img src="img/minus.png" class="minus"
             a href="#"

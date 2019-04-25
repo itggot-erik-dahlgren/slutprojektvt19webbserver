@@ -40,3 +40,8 @@ post ('/create_user/new') do
     create_user(params["re_password"], params["password"], params["name"], params["email"])
     redirect('/')
 end
+
+post ('/post_article') do
+    post_article(params["price"], params["stock"], params["title"], params["picture"])
+    redirect('/home')
+end

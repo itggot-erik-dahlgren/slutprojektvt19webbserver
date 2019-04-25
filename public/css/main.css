@@ -20,12 +20,16 @@ body {
     grid-area: pic;
 }
 
-.middle {
+.info {
     margin: 0;
-    grid-area: middle;
+    grid-area: info;
 }
 
-#box1 {
+p {
+    margin: 0;
+}
+
+.box {
     display: grid;
     margin: auto;
     width: fit-content;
@@ -34,6 +38,6 @@ body {
     grid-template-rows: auto auto auto;
     grid-template-areas: 
     "pic pic"
-    "middle middle"
+    "info info"
     "minus plus";
 }
