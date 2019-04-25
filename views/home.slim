@@ -1,2 +1,14 @@
-h1 you are here now
+- if session[:id] != nil
+    p logged in as #{session[:name]}
 
+    h1 Webshop
+    - products.each do |element|
+        div class="box"
+            img src="img/#{element["picture"]}" class="pic"
+            div class="info"
+                label class="price" = element["price"]
+                label class="stock" = element["stock"]
+            a href="#"
+                img src="img/minus.png" class="minus"
+            a href="#"
+                img src="img/plus.png" class="plus"

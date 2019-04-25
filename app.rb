@@ -11,10 +11,14 @@ get ('/') do
     slim(:index)
 end
 
-# get ('/:id') do
-#     verify_login(session[:id])
-#     slim(:index)
-# end
+get ('/home') do
+    db = SQLite3::Database.new("db/webshop.db")
+    db.results_as_hash = true
+    
+    products = db.execute("SELECT * FROM products")
+    slim(:home, locals:{
+        products: products})
+end
 
 get ('/create_user') do
     slim(:create_user)

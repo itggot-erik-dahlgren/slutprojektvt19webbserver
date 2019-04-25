@@ -15,13 +15,13 @@ end
 def login(name, password)
     db = SQLite3::Database.new("db/webshop.db")
     db.results_as_hash = true
-
+    
     result = db.execute("SELECT id, name, password, email FROM custumers WHERE name = ?", name)
     if BCrypt::Password.new(result.first["password"]) == password
         session[:name] = result.first["name"]
         session[:id] = result.first["id"]
         session[:email] = result.first["email"]
-        redirect("/") #redirect("/#{session[:id]}/home")
+        redirect("/home") #redirect("/#{session[:id]}/home")
     else
         redirect('/login')
     end
