@@ -30,10 +30,12 @@ end
 def verify_login(id)
     if id == nil
         redirect('/error')
-    end 
+    else
+        true
+    end
 end
 
-def post_article(price, stock, title, picture)
+def post_article(price, stock, title, picture) #user_id måste inkluderas
     db = SQLite3::Database.new("db/webshop.db")
     db.results_as_hash = true
 

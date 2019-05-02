@@ -13,13 +13,19 @@
                 input name="stock" placeholder="Stock" type="number"
                 input name="picture" placeholder="Picture_Url" type="text"
                 input name="enter" placeholder="Post" type="submit"
-
+    
     - products.each do |element|
         div class="box"
             img src="img/#{element["picture"]}" class="pic"
+            h3 class="title" #{element["title"]}
+            p class="user" #{element["user_id"]}
+            / p class="user" #{element["user_id"]} detta verkar inte riktigt fungera
             div class="info"
                 p Price: #{element["price"]}
                 p Stock: #{element["stock"]} 
+            form action="home/#{element["id"]}/delete" method="POST" class="delete"
+                button type="submit" value=""
+                    i.material-icons delete
             a href="#"
                 img src="img/minus.png" class="minus"
             a href="#"

@@ -12,12 +12,14 @@ get ('/') do
 end
 
 get ('/home') do
-    db = SQLite3::Database.new("db/webshop.db")
-    db.results_as_hash = true
-    
-    products = db.execute("SELECT * FROM products")
-    slim(:home, locals:{
-        products: products})
+    if verify_login(session[:id])
+        db = SQLite3::Database.new("db/webshop.db")
+        db.results_as_hash = true
+        
+        products = db.execute("SELECT * FROM products")
+        slim(:home, locals:{
+            products: products})
+    end
 end
 
 get ('/create_user') do
@@ -26,6 +28,11 @@ end
 
 get ('/login') do
     slim(:login)
+end
+
+get ('/logout') do
+    session.clear
+    redirect('/')
 end
 
 get ('/error') do
@@ -42,6 +49,17 @@ post ('/create_user/new') do
 end
 
 post ('/post_article') do
-    post_article(params["price"], params["stock"], params["title"], params["picture"])
+    if verify_login(session[:id])
+        post_article(params["price"], params["stock"], params["title"], params["picture"])
+        redirect('/home')
+    end
+end
+
+post ('/home/:id/delete') do
+    db = SQLite3::Database.new("db/webshop.db")
+    db.results_as_hash = true
+
+    result = db.execute("SELECT custumers.id FROM custumers INNER JOIN products WHERE user_id = custumers.id")
+    db.execute("DELETE FROM products WHERE products.id = ?", params["id"])
     redirect('/home')
 end
