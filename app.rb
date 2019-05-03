@@ -50,16 +50,12 @@ end
 
 post ('/post_article') do
     if verify_login(session[:id])
-        post_article(params["price"], params["stock"], params["title"], params["picture"])
+        post_article(session[:id], params["price"], params["stock"], params["title"], params["picture"])
         redirect('/home')
     end
 end
 
 post ('/home/:id/delete') do
-    db = SQLite3::Database.new("db/webshop.db")
-    db.results_as_hash = true
-
-    result = db.execute("SELECT custumers.id FROM custumers INNER JOIN products WHERE user_id = custumers.id")
-    db.execute("DELETE FROM products WHERE products.id = ?", params["id"])
+    post_delete(params["id"])
     redirect('/home')
 end

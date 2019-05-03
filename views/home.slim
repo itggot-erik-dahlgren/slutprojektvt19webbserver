@@ -3,7 +3,6 @@
 
     h1 Webshop
 
-
     form action="/post_article" method="POST"
         h3 Post
         article
@@ -18,8 +17,7 @@
         div class="box"
             img src="img/#{element["picture"]}" class="pic"
             h3 class="title" #{element["title"]}
-            p class="user" #{element["user_id"]}
-            / p class="user" #{element["user_id"]} detta verkar inte riktigt fungera
+            p class="user" user_id: #{element["user_id"]}
             div class="info"
                 p Price: #{element["price"]}
                 p Stock: #{element["stock"]} 

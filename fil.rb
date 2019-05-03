@@ -1,7 +1,7 @@
 def create_user(re_password, password, name, email)
     db = SQLite3::Database.new("db/webshop.db")
     db.results_as_hash = true
-    #result.length > 5 på både lösenord och andvändarnamn
+    
     if re_password != password
         redirect('/')
     end
@@ -35,9 +35,18 @@ def verify_login(id)
     end
 end
 
-def post_article(price, stock, title, picture) #user_id måste inkluderas
+def post_article(user_id, price, stock, title, picture)
     db = SQLite3::Database.new("db/webshop.db")
     db.results_as_hash = true
 
-    db.execute("INSERT INTO products (price, stock, title, picture) VALUES (?,?,?,?)", price, stock, title, picture)
+    db.execute("INSERT INTO products (user_id, price, stock, title, picture) VALUES (?,?,?,?,?)", user_id, price, stock, title, picture)
+end 
+
+def post_delete(id)
+    db = SQLite3::Database.new("db/webshop.db")
+    db.results_as_hash = true
+    user_id = db.execute("SELECT user_id FROM products WHERE id = ?", id)
+    if user_id.first["user_id"] == session[:id]
+        db.execute("DELETE FROM products WHERE products.id = ?", id)
+    end
 end
